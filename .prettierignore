@@ -1,0 +1,5 @@
+dist
+node_modules
+package-lock.json
+.openai
+THIRD_PARTY_LICENSES

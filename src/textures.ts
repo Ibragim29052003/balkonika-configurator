@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 // All colour maps are drawn locally. Seeded variation keeps the room stable
 // between renders and avoids external image requests or licensed materials.
-function randomGenerator(seed) {
+function randomGenerator(seed: number) {
   let value = seed >>> 0;
   return () => {
     value = (Math.imul(1664525, value) + 1013904223) >>> 0;
@@ -10,15 +10,20 @@ function randomGenerator(seed) {
   };
 }
 
-function rgb(red, green, blue) {
+function rgb(red: number, green: number, blue: number) {
   return `rgb(${Math.round(red)}, ${Math.round(green)}, ${Math.round(blue)})`;
 }
 
-function makeTexture(size, draw, repeat = true) {
+function makeTexture(
+  size: number,
+  draw: (context: CanvasRenderingContext2D, size: number) => void,
+  repeat = true,
+) {
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
   const context = canvas.getContext('2d', { willReadFrequently: true });
+  if (!context) throw new Error('Canvas 2D is unavailable');
   draw(context, size);
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -30,7 +35,12 @@ function makeTexture(size, draw, repeat = true) {
   return texture;
 }
 
-function addFineVariation(context, size, random, strength = 1.5) {
+function addFineVariation(
+  context: CanvasRenderingContext2D,
+  size: number,
+  random: () => number,
+  strength = 1.5,
+) {
   const image = context.getImageData(0, 0, size, size);
   for (let index = 0; index < image.data.length; index += 4) {
     const variation = (random() - 0.5) * strength * 2;
@@ -41,7 +51,7 @@ function addFineVariation(context, size, random, strength = 1.5) {
   context.putImageData(image, 0, 0);
 }
 
-export function createWoodTexture(tone = 'light') {
+export function createWoodTexture(tone: 'light' | 'dark' = 'light') {
   const dark = tone === 'dark';
   const random = randomGenerator(dark ? 8321 : 1937);
   const base = dark ? [119, 87, 61] : [202, 175, 134];
@@ -52,7 +62,7 @@ export function createWoodTexture(tone = 'light') {
 
     for (let column = 0; column < 14; column += 1) {
       const x = column * width;
-      const offset = (column % 3) * length / 3;
+      const offset = ((column % 3) * length) / 3;
       const tones = [random() * 9 - 4.5, random() * 9 - 4.5];
       context.save();
       context.beginPath();
@@ -63,9 +73,15 @@ export function createWoodTexture(tone = 'light') {
       for (let row = 0; row < 3; row += 1) {
         const y = row * length - offset;
         const variation = tones[row % 2];
-        context.fillStyle = rgb(...base.map(channel => channel + variation));
+        context.fillStyle = rgb(
+          base[0] + variation,
+          base[1] + variation,
+          base[2] + variation,
+        );
         context.fillRect(x, y, width, length);
-        context.fillStyle = dark ? 'rgba(40, 29, 20, 0.23)' : 'rgba(102, 75, 45, 0.20)';
+        context.fillStyle = dark
+          ? 'rgba(40, 29, 20, 0.23)'
+          : 'rgba(102, 75, 45, 0.20)';
         context.fillRect(x, y, width, 1.4);
         context.fillStyle = 'rgba(255, 244, 220, 0.10)';
         context.fillRect(x, y + 1.4, width, 1);
@@ -83,8 +99,9 @@ export function createWoodTexture(tone = 'light') {
         context.lineWidth = 0.35 + random() * 0.65;
         context.beginPath();
         for (let y = 0; y <= size; y += 16) {
-          const wave = Math.sin(y / size * Math.PI * 2 + phase) * amplitude
-            + Math.sin(y / size * Math.PI * 6 + phase) * amplitude * 0.3;
+          const wave =
+            Math.sin((y / size) * Math.PI * 2 + phase) * amplitude +
+            Math.sin((y / size) * Math.PI * 6 + phase) * amplitude * 0.3;
           if (y === 0) context.moveTo(center + wave, y);
           else context.lineTo(center + wave, y);
         }
@@ -99,12 +116,22 @@ export function createWoodTexture(tone = 'light') {
           context.strokeStyle = `rgba(${dark ? '48, 32, 20' : '113, 79, 44'}, ${0.035 - ring * 0.004})`;
           context.lineWidth = 0.8;
           context.beginPath();
-          context.ellipse(centerX, centerY, 2 + ring * 1.1, 8 + ring * 5, -0.035, 0, Math.PI * 2);
+          context.ellipse(
+            centerX,
+            centerY,
+            2 + ring * 1.1,
+            8 + ring * 5,
+            -0.035,
+            0,
+            Math.PI * 2,
+          );
           context.stroke();
         }
       }
 
-      context.fillStyle = dark ? 'rgba(42, 29, 20, 0.25)' : 'rgba(111, 82, 48, 0.20)';
+      context.fillStyle = dark
+        ? 'rgba(42, 29, 20, 0.25)'
+        : 'rgba(111, 82, 48, 0.20)';
       context.fillRect(x, 0, 1.2, size);
       context.fillStyle = 'rgba(255, 247, 227, 0.11)';
       context.fillRect(x + 1.2, 0, 1, size);
@@ -134,42 +161,54 @@ export function createFabricTexture() {
 
 export function createRugTexture(color = '#c7b393') {
   const random = randomGenerator(6409);
-  return makeTexture(512, (context, size) => {
-    context.fillStyle = color;
-    context.fillRect(0, 0, size, size);
+  return makeTexture(
+    512,
+    (context, size) => {
+      context.fillStyle = color;
+      context.fillRect(0, 0, size, size);
 
-    for (let thread = 0; thread < size; thread += 2) {
-      context.fillStyle = `rgba(255, 251, 233, ${0.07 + random() * 0.07})`;
-      context.fillRect(thread, 0, 0.9, size);
-      context.fillStyle = `rgba(54, 45, 32, ${0.035 + random() * 0.025})`;
-      context.fillRect(0, thread, size, 0.75);
-    }
-
-    context.strokeStyle = 'rgba(68, 57, 40, 0.18)';
-    context.lineWidth = 2;
-    context.strokeRect(22, 22, size - 44, size - 44);
-    context.lineWidth = 1;
-    context.strokeRect(31, 31, size - 62, size - 62);
-    context.strokeStyle = 'rgba(255, 247, 224, 0.22)';
-    context.lineWidth = 3;
-    context.strokeRect(26, 26, size - 52, size - 52);
-
-    for (let row = 64; row < size - 55; row += 48) {
-      context.strokeStyle = 'rgba(67, 56, 39, 0.055)';
-      context.lineWidth = 1.3;
-      context.beginPath();
-      for (let x = 52; x < size - 50; x += 24) {
-        context.moveTo(x, row);
-        context.lineTo(x + 7, row + 6);
-        context.lineTo(x + 14, row);
+      for (let thread = 0; thread < size; thread += 2) {
+        context.fillStyle = `rgba(255, 251, 233, ${0.07 + random() * 0.07})`;
+        context.fillRect(thread, 0, 0.9, size);
+        context.fillStyle = `rgba(54, 45, 32, ${0.035 + random() * 0.025})`;
+        context.fillRect(0, thread, size, 0.75);
       }
-      context.stroke();
-    }
-    addFineVariation(context, size, random, 1.1);
-  }, false);
+
+      context.strokeStyle = 'rgba(68, 57, 40, 0.18)';
+      context.lineWidth = 2;
+      context.strokeRect(22, 22, size - 44, size - 44);
+      context.lineWidth = 1;
+      context.strokeRect(31, 31, size - 62, size - 62);
+      context.strokeStyle = 'rgba(255, 247, 224, 0.22)';
+      context.lineWidth = 3;
+      context.strokeRect(26, 26, size - 52, size - 52);
+
+      for (let row = 64; row < size - 55; row += 48) {
+        context.strokeStyle = 'rgba(67, 56, 39, 0.055)';
+        context.lineWidth = 1.3;
+        context.beginPath();
+        for (let x = 52; x < size - 50; x += 24) {
+          context.moveTo(x, row);
+          context.lineTo(x + 7, row + 6);
+          context.lineTo(x + 14, row);
+        }
+        context.stroke();
+      }
+      addFineVariation(context, size, random, 1.1);
+    },
+    false,
+  );
 }
 
-function drawLeaf(context, x, y, angle, length, width, color) {
+function drawLeaf(
+  context: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  angle: number,
+  length: number,
+  width: number,
+  color: string,
+) {
   context.save();
   context.translate(x, y);
   context.rotate(angle);
@@ -184,46 +223,50 @@ function drawLeaf(context, x, y, angle, length, width, color) {
 
 export function createArtTexture() {
   const random = randomGenerator(9031);
-  return makeTexture(512, (context, size) => {
-    context.fillStyle = '#f0ecdf';
-    context.fillRect(0, 0, size, size);
-    context.fillStyle = '#d8b99d';
-    context.beginPath();
-    context.arc(329, 158, 74, 0, Math.PI * 2);
-    context.fill();
-    context.fillStyle = '#e4dfcc';
-    context.beginPath();
-    context.ellipse(236, 405, 135, 21, 0, 0, Math.PI * 2);
-    context.fill();
+  return makeTexture(
+    512,
+    (context, size) => {
+      context.fillStyle = '#f0ecdf';
+      context.fillRect(0, 0, size, size);
+      context.fillStyle = '#d8b99d';
+      context.beginPath();
+      context.arc(329, 158, 74, 0, Math.PI * 2);
+      context.fill();
+      context.fillStyle = '#e4dfcc';
+      context.beginPath();
+      context.ellipse(236, 405, 135, 21, 0, 0, Math.PI * 2);
+      context.fill();
 
-    context.strokeStyle = '#65755c';
-    context.lineWidth = 4;
-    context.lineCap = 'round';
-    context.beginPath();
-    context.moveTo(232, 409);
-    context.bezierCurveTo(237, 299, 254, 223, 298, 115);
-    context.stroke();
-    context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(244, 332);
-    context.quadraticCurveTo(201, 279, 165, 235);
-    context.moveTo(256, 277);
-    context.quadraticCurveTo(300, 266, 346, 242);
-    context.stroke();
+      context.strokeStyle = '#65755c';
+      context.lineWidth = 4;
+      context.lineCap = 'round';
+      context.beginPath();
+      context.moveTo(232, 409);
+      context.bezierCurveTo(237, 299, 254, 223, 298, 115);
+      context.stroke();
+      context.lineWidth = 2;
+      context.beginPath();
+      context.moveTo(244, 332);
+      context.quadraticCurveTo(201, 279, 165, 235);
+      context.moveTo(256, 277);
+      context.quadraticCurveTo(300, 266, 346, 242);
+      context.stroke();
 
-    const leaves = [
-      [242, 355, -2.5, 83, 25, '#8d9c7b'],
-      [247, 323, -0.6, 91, 27, '#71866b'],
-      [255, 280, -2.1, 78, 23, '#849576'],
-      [266, 243, -0.55, 86, 25, '#536f58'],
-      [278, 199, -2.0, 66, 21, '#8f9f7e'],
-      [291, 154, -1.2, 56, 17, '#657d61'],
-      [194, 275, -2.4, 55, 19, '#789070'],
-      [319, 256, -0.8, 58, 18, '#8e9d7e'],
-    ];
-    for (const leaf of leaves) drawLeaf(context, ...leaf);
-    addFineVariation(context, size, random, 1);
-  }, false);
+      const leaves: [number, number, number, number, number, string][] = [
+        [242, 355, -2.5, 83, 25, '#8d9c7b'],
+        [247, 323, -0.6, 91, 27, '#71866b'],
+        [255, 280, -2.1, 78, 23, '#849576'],
+        [266, 243, -0.55, 86, 25, '#536f58'],
+        [278, 199, -2.0, 66, 21, '#8f9f7e'],
+        [291, 154, -1.2, 56, 17, '#657d61'],
+        [194, 275, -2.4, 55, 19, '#789070'],
+        [319, 256, -0.8, 58, 18, '#8e9d7e'],
+      ];
+      for (const leaf of leaves) drawLeaf(context, ...leaf);
+      addFineVariation(context, size, random, 1);
+    },
+    false,
+  );
 }
 
 export function createTileTexture() {
@@ -238,9 +281,20 @@ export function createTileTexture() {
         const x = column * width;
         const y = row * width;
         const variation = random() * 8 - 4;
-        context.fillStyle = rgb(173 + variation, 177 + variation, 170 + variation);
+        context.fillStyle = rgb(
+          173 + variation,
+          177 + variation,
+          170 + variation,
+        );
         context.fillRect(x + 1.4, y + 1.4, width - 2.8, width - 2.8);
-        const cloud = context.createRadialGradient(x + width * 0.2, y + width * 0.3, 0, x + width * 0.5, y + width * 0.5, width * 0.85);
+        const cloud = context.createRadialGradient(
+          x + width * 0.2,
+          y + width * 0.3,
+          0,
+          x + width * 0.5,
+          y + width * 0.5,
+          width * 0.85,
+        );
         cloud.addColorStop(0, 'rgba(255, 255, 246, 0.065)');
         cloud.addColorStop(1, 'rgba(255, 255, 246, 0)');
         context.fillStyle = cloud;
