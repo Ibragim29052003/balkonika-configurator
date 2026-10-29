@@ -899,6 +899,34 @@ button:focus-visible,a:focus-visible {
 
 }
 
+/* Keep the result visible while choosing finishes on a phone. */
+@media(max-width:600px) and (min-height:500px) {
+  .workspace {
+    overflow:clip;
+  }
+
+  .visual {
+    position:sticky;
+    top:0;
+    z-index:2;
+    align-self:start;
+    box-shadow:0 3px 12px #263d320c;
+  }
+
+  .balcony {
+    max-height:36svh;
+    margin:35px 0 29px;
+  }
+
+  .scene-topline {
+    top:10px;
+  }
+
+  .scene-bottomline {
+    bottom:10px;
+  }
+}
+
 @media(prefers-reduced-motion:reduce) {
   *,*:before,*:after {
     transition:none!important;
