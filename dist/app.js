@@ -17,7 +17,7 @@ function render() {
   wood.toggleAttribute('hidden', selection.floor === 'tile');
   tile.toggleAttribute('hidden', selection.floor !== 'tile');
   summary.textContent = describeSelection(selection);
-  sceneTitle.textContent = `Интерьер балкона с ${wall.interior} стенами и ${floor.interior}`;
+  sceneTitle.textContent = `Интерьер балкона. ${describeSelection(selection)}`;
 }
 
 form.addEventListener('change', (event) => {
