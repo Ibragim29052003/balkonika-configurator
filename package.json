@@ -1,0 +1,13 @@
+{
+  "name": "balkonika-configurator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Мини-конструктор отделки балкона — без зависимостей и серверной части.",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test",
+    "check": "node --check dist/app.js && node --check dist/materials.js && node --check scripts/serve.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
