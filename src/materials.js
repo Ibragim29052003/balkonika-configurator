@@ -12,12 +12,6 @@ export const floors = Object.freeze({
 
 export const initialSelection = Object.freeze({ wall: 'beige', floor: 'light' });
 
-export function selectMaterial(selection, surface, value) {
-  const options = surface === 'wall' ? walls : surface === 'floor' ? floors : null;
-  if (!options || !Object.hasOwn(options, value)) return selection;
-  return { ...selection, [surface]: value };
-}
-
 export function describeSelection({ wall, floor }) {
   return `Стены: ${walls[wall].description}. Пол: ${floors[floor].description}.`;
 }

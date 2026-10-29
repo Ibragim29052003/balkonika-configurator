@@ -1,4 +1,4 @@
-import { walls, floors } from './materials.js';
+import { walls, floors, initialSelection } from './materials.js';
 
 export const curtainColors = Object.freeze({
   linen: { color: '#dfd2b8', label: 'Натуральный лён' },
@@ -22,7 +22,7 @@ const defaultCurtain = () => ({ enabled: false, open: true, color: 'linen', leng
 
 export function createInitialState() {
   return {
-    wall: 'beige', floor: 'light', period: 'day',
+    ...initialSelection, period: 'day',
     curtains: { left: defaultCurtain(), back: defaultCurtain() },
     lighting: { enabled: true, on: true, temperature: 'warm', brightness: 70 },
     rug: { enabled: false, color: 'sand' },

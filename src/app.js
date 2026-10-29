@@ -127,14 +127,24 @@ sceneContainer.addEventListener('keydown', event => {
 if (!matchMedia('(pointer:fine)').matches) byId('scene-help').textContent = 'Выберите удобный ракурс';
 renderUI();
 
-try {
-  const { BalconyScene } = await import('./scene.js');
-  room = new BalconyScene(sceneContainer);
+async function useFallback() {
+  const { FallbackScene } = await import('./fallback.js');
+  sceneContainer.querySelector('canvas')?.remove();
+  room = new FallbackScene(sceneContainer);
   room.update(state);
   byId('scene-loading').hidden = true;
+}
+
+try {
+  if (new URLSearchParams(location.search).get('mode') === '2d') {
+    await useFallback();
+  } else {
+    const { BalconyScene } = await import('./scene.js');
+    room = new BalconyScene(sceneContainer);
+    room.update(state);
+    byId('scene-loading').hidden = true;
+  }
 } catch (error) {
-  console.error('3D initialization failed:', error);
-  sceneContainer.dataset.renderStatus = 'error';
-  byId('scene-loading').lastElementChild.textContent = 'Для 3D-превью нужна поддержка WebGL 2. Попробуйте другой браузер.';
-  byId('scene-loading').firstElementChild.hidden = true;
+  console.warn('Using the lightweight illustration:', error);
+  await useFallback();
 }

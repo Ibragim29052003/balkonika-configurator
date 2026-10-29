@@ -87,8 +87,8 @@ export function initializeSelects() {
       active = control;
       list.hidden = false;
       button.setAttribute('aria-expanded', 'true');
-      highlight(select.selectedIndex);
       position();
+      highlight(select.selectedIndex);
     }
     function close() {
       list.hidden = true;
