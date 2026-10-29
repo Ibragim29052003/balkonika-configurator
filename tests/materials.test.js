@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { walls, floors, initialSelection, selectMaterial, describeSelection } from '../dist/materials.js';
+import { walls, floors, initialSelection, selectMaterial, describeSelection } from '../src/materials.js';
 
 test('the initial selection matches the assignment defaults', () => {
   assert.deepEqual(initialSelection, { wall: 'beige', floor: 'light' });

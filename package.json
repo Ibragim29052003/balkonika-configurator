@@ -1,13 +1,17 @@
 {
   "name": "balkonika-configurator",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "Мини-конструктор отделки балкона — без зависимостей и серверной части.",
+  "description": "Интерактивная 3D-студия отделки балкона.",
   "scripts": {
-    "dev": "node scripts/serve.mjs",
+    "dev": "vite --host 127.0.0.1 --port 4173",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
     "test": "node --test",
-    "check": "node --check dist/app.js && node --check dist/materials.js && node --check dist/atmosphere.js && node --check dist/atmosphere-ui.js && node --check scripts/serve.mjs"
+    "check": "node scripts/check.mjs"
   },
-  "engines": { "node": ">=22" }
+  "engines": { "node": ">=22.12" },
+  "dependencies": { "three": "0.186.1" },
+  "devDependencies": { "vite": "8.3.5" }
 }

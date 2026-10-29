@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="Личная 3D-студия балкона: примеряйте отделку, настраивайте шторы, ковёр и освещение в реальном времени.">
+  <title>Балконика — ваша студия интерьера</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>try{const t=localStorage.getItem('balkonika-theme');document.documentElement.dataset.theme=t==='dark'||t==='light'?t:matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'}catch{}</script>
+  <link rel="stylesheet" href="/src/styles.css">
+  <script type="module" src="/src/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#settings">Перейти к настройкам</a>
+  <header class="site-header shell">
+    <a href="./" class="brand" aria-label="Балконика — на главную"><svg viewBox="0 0 36 40" aria-hidden="true" fill="none"><path d="M4 35V8l14-4 14 4v27H4ZM18 5v30M4 23h28M4 8l14 4 14-4" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg><span>балконика<span class="brand-dot">.</span></span></a>
+    <span class="header-label">Личная студия интерьера</span>
+    <div class="header-actions"><span class="live-chip"><i></i> Сделано для вашего уюта</span><button id="theme-toggle" class="theme-toggle" type="button" aria-label="Включить тёмную тему интерфейса" aria-pressed="false"><svg class="moon" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M20 14.4A8.5 8.5 0 0 1 9.6 4 8.5 8.5 0 1 0 20 14.4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="sun" viewBox="0 0 24 24" aria-hidden="true" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></div>
+  </header>
+  <main class="shell">
+    <div class="intro"><div><p class="eyebrow">МАЛЕНЬКОЕ ПРОСТРАНСТВО. ВАШ БОЛЬШОЙ МИР.</p><h1>Создайте <em>своё место.</em></h1></div><p class="intro-text">Натуральные фактуры, мягкий текстиль и правильный свет.<br>Посмотрите, как всё сочетается в вашем балконе.</p></div>
+    <div class="studio" id="configurator">
+      <section class="stage" aria-label="Трёхмерный интерьер балкона">
+        <div id="scene-container" class="scene-container" role="img" aria-label="3D-интерьер балкона с бежевыми стенами и светлым деревянным полом" tabindex="0" aria-describedby="scene-help"><div class="scene-loading" id="scene-loading"><span class="loading-mark"></span><span>Обустраиваем ваш балкон…</span></div></div>
+        <div class="stage-top"><span class="scene-badge"><i></i> Ваш будущий балкон</span><span class="scene-period" id="scene-period">Дневной свет</span></div>
+        <div class="stage-bottom"><span class="scene-drag" id="scene-help">Потяните мышью, чтобы осмотреть</span><div class="camera-views" role="group" aria-label="Ракурс интерьера"><button type="button" class="active" data-view="wide" aria-pressed="true">Общий вид</button><button type="button" data-view="detail" aria-pressed="false">Ближе</button><button type="button" data-view="window" aria-pressed="false">К окнам</button></div></div>
+      </section>
+      <aside class="settings" id="settings" aria-label="Настройки интерьера">
+        <div class="settings-top"><div><p class="eyebrow">СТУДИЯ БАЛКОНИКА</p><h2>Почувствуйте разницу</h2></div><span class="settings-count" aria-hidden="true">01—03</span></div>
+        <div class="tabs" role="tablist" aria-label="Разделы настроек">
+          <button role="tab" id="tab-finishes" aria-controls="panel-finishes" aria-selected="true" tabindex="0" type="button" data-tab="finishes">Отделка</button>
+          <button role="tab" id="tab-textiles" aria-controls="panel-textiles" aria-selected="false" tabindex="-1" type="button" data-tab="textiles">Текстиль</button>
+          <button role="tab" id="tab-lighting" aria-controls="panel-lighting" aria-selected="false" tabindex="-1" type="button" data-tab="lighting">Свет</button>
+        </div>
+        <form id="finishes" aria-label="Конструктор интерьера">
+          <div id="panel-finishes" role="tabpanel" aria-labelledby="tab-finishes" class="tab-panel">
+            <fieldset><legend>Цвет стен <span>Спокойная основа интерьера</span></legend><div class="wall-options">
+              <label class="wall-option"><input type="radio" name="wall" data-path="wall" value="white"><span class="wall-swatch white"><i aria-hidden="true">✓</i></span><span>Белый</span></label>
+              <label class="wall-option"><input type="radio" name="wall" data-path="wall" value="beige" checked><span class="wall-swatch beige"><i aria-hidden="true">✓</i></span><span>Бежевый</span></label>
+              <label class="wall-option"><input type="radio" name="wall" data-path="wall" value="gray"><span class="wall-swatch gray"><i aria-hidden="true">✓</i></span><span>Светло-серый</span></label>
+            </div></fieldset>
+            <fieldset class="floor-fieldset"><legend>Покрытие пола <span>Фактура, которая задаёт настроение</span></legend><div class="floor-options">
+              <label class="floor-option"><input type="radio" name="floor" data-path="floor" value="light" checked><span class="material light-wood" aria-hidden="true"></span><span class="floor-name">Светлое дерево<small>Натуральный дуб</small></span><span class="radio-mark" aria-hidden="true"></span></label>
+              <label class="floor-option"><input type="radio" name="floor" data-path="floor" value="dark"><span class="material dark-wood" aria-hidden="true"></span><span class="floor-name">Тёмное дерево<small>Глубокий ореховый оттенок</small></span><span class="radio-mark" aria-hidden="true"></span></label>
+              <label class="floor-option"><input type="radio" name="floor" data-path="floor" value="tile"><span class="material gray-tile" aria-hidden="true"></span><span class="floor-name">Серая плитка<small>Лаконичный камень</small></span><span class="radio-mark" aria-hidden="true"></span></label>
+            </div></fieldset>
+          </div>
+          <div id="panel-textiles" role="tabpanel" aria-labelledby="tab-textiles" class="tab-panel" hidden>
+            <div class="section-heading"><h3>Шторы</h3><button type="button" id="curtains-all" class="text-button">На все окна <span aria-hidden="true">↗</span></button></div>
+            <p class="section-copy">Настройте каждую сторону отдельно или примените выбранную ткань ко всем окнам.</p>
+            <div class="segmented window-tabs" role="group" aria-label="Какие окна настроить"><button type="button" data-window="left" aria-pressed="true" class="active">Левая сторона</button><button type="button" data-window="back" aria-pressed="false">Дальнее окно</button></div>
+            <label class="toggle"><span id="curtain-toggle-label">Шторы слева</span><input type="checkbox" id="curtain-enabled" data-curtain="enabled"><span class="switch" aria-hidden="true"></span></label>
+            <fieldset id="curtain-controls" class="curtain-controls" disabled hidden><legend class="sr-only">Параметры выбранных штор</legend>
+              <div class="segmented"><label><input type="radio" name="curtainOpen" data-curtain="open" value="true" checked><span>Открыты</span></label><label><input type="radio" name="curtainOpen" data-curtain="open" value="false"><span>Закрыты</span></label></div>
+              <label class="control-label" for="curtain-color" id="curtain-color-label">Цвет ткани</label><select id="curtain-color" name="curtainColor" data-curtain="color" data-custom><option value="linen" data-color="#dfd2b8">Натуральный лён</option><option value="sage" data-color="#8d9e85">Шалфей</option><option value="graphite" data-color="#535c62">Графит</option></select>
+              <label class="control-label range-label" for="curtain-length">Длина штор <output for="curtain-length" id="curtain-length-value">260 см</output></label><input type="range" id="curtain-length" data-curtain="length" min="120" max="260" step="10" value="260"><div class="range-ends"><span>Короче · 120 см</span><span>В пол · 260 см</span></div>
+            </fieldset>
+            <div class="rug-section"><label class="toggle"><span>Добавить ковёр<small>Немного тепла под ногами</small></span><input type="checkbox" data-path="rug.enabled" id="rug-enabled"><span class="switch" aria-hidden="true"></span></label><div id="rug-controls" hidden><label class="control-label" for="rug-color" id="rug-color-label">Цвет ковра</label><select id="rug-color" data-path="rug.color" data-custom><option value="sand" data-color="#c9bba0">Песочный</option><option value="clay" data-color="#ae7760">Терракотовый</option><option value="olive" data-color="#899279">Оливковый</option></select></div></div>
+            <p class="panel-note" id="curtain-status" role="status" aria-live="polite">Шторы пока не добавлены.</p>
+          </div>
+          <div id="panel-lighting" role="tabpanel" aria-labelledby="tab-lighting" class="tab-panel" hidden>
+            <fieldset><legend>Время суток <span>Два настроения одного пространства</span></legend><div class="segmented period-options"><label><input type="radio" name="period" data-path="period" value="day" checked><span>☀ <span>День</span></span></label><label><input type="radio" name="period" data-path="period" value="night"><span>☾ <span>Вечер</span></span></label></div></fieldset>
+            <div class="light-section"><label class="toggle"><span>Подвесной светильник</span><input type="checkbox" data-path="lighting.enabled" id="lamp-enabled" checked><span class="switch" aria-hidden="true"></span></label><fieldset id="lamp-controls"><legend class="sr-only">Параметры света</legend><label class="toggle"><span>Включить свет</span><input type="checkbox" data-path="lighting.on" id="lamp-on" checked><span class="switch" aria-hidden="true"></span></label><div id="light-settings"><label class="control-label" for="temperature" id="temperature-label">Температура света</label><select id="temperature" data-path="lighting.temperature" data-custom><option value="warm" data-color="#ffd5a0">Тёплый · 3000 K</option><option value="neutral" data-color="#fff2dd">Нейтральный · 4500 K</option><option value="cool" data-color="#c9e0ff">Холодный · 6000 K</option></select><label class="control-label range-label" for="brightness">Яркость <output for="brightness" id="brightness-value">70%</output></label><input type="range" id="brightness" data-path="lighting.brightness" min="10" max="100" step="5" value="70"></div></fieldset></div>
+            <p class="panel-note">Свет падает на поверхности и создаёт тени. Тема интерфейса на освещение комнаты не влияет.</p>
+          </div>
+          <div class="selection"><span class="selection-label">ВАШЕ СОЧЕТАНИЕ</span><p id="selection-summary" role="status" aria-live="polite" aria-atomic="true">Стены: бежевые. Пол: светлое дерево.</p></div>
+          <button class="reset" type="reset"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none"><path d="M4 7a6 6 0 1 1-.1 5M4 3v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Сбросить оформление<span aria-hidden="true">↺</span></button>
+        </form>
+      </aside>
+    </div>
+    <div class="under-studio"><span><i aria-hidden="true">✧</i> Пространство меняется. Уют остаётся вашим.</span><p>Визуализация помогает выбрать сочетание. Реальные оттенки и размеры могут отличаться.</p></div>
+    <noscript><p class="no-js">Для работы 3D-студии включите JavaScript.</p></noscript>
+  </main>
+  <footer class="shell site-footer"><span>Балконика <i>/</i> Пространство для жизни</span><span>Создавайте. Примеряйте. Чувствуйте себя дома.</span></footer>
+</body>
+</html>
