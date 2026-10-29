@@ -1,6 +1,6 @@
 {
   "name": "balkonika-configurator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "Мини-конструктор отделки балкона — без зависимостей и серверной части.",
