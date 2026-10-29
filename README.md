@@ -2,7 +2,7 @@
 
 Интерактивный конструктор балкона на **React, TypeScript, Redux Toolkit и Three.js**. Подбор отделки, независимые шторы на двух сторонах, ковёр и освещение в собственной 3D-сцене.
 
-[Демо без регистрации](https://balkonika-interior-ibragim.opal-tang-7471.chatgpt.site) · [Исходное задание и пояснение](HANDOFF.md) · [Проверки](TESTING.md)
+[Демо без регистрации](https://ibragim29052003.github.io/balkonika-configurator/) · [Исходное задание и пояснение](HANDOFF.md) · [Проверки](TESTING.md)
 
 ## Возможности
 
@@ -34,7 +34,7 @@ npm run build        # production-сборка в dist/
 npm run preview      # локальный просмотр production-сборки
 ```
 
-GitHub Actions выполняет эти проверки при push в `main` и в pull request. Для статического хостинга нужен только результат сборки `dist/`; сервер приложения, ключи API и переменные окружения не требуются.
+GitHub Actions выполняет эти проверки при push в `main` и в pull request. После успешных проверок `main` автоматически публикуется на GitHub Pages. Для статического хостинга нужен только результат сборки `dist/`; сервер приложения, ключи API и переменные окружения не требуются.
 
 ## Архитектура
 
@@ -79,4 +79,10 @@ GitHub Actions выполняет эти проверки при push в `main` 
 
 ## Разработка с ИИ
 
-Использован Codex для реализации, процедурных текстур, тестов и браузерной проверки; Sites — для публикации. Участие ИИ и развитие исходного тестового описаны в [HANDOFF.md](HANDOFF.md). Лицензия Three.js включена в `THIRD_PARTY_LICENSES`.
+Использован Codex для реализации, процедурных текстур, тестов и браузерной проверки; GitHub Pages — для публикации. Участие ИИ и развитие исходного тестового описаны в [HANDOFF.md](HANDOFF.md). Лицензия Three.js включена в `THIRD_PARTY_LICENSES`.
+
+## Публикация
+
+Workflow `.github/workflows/check.yml` разделяет проверку/сборку и публикацию; pull request не разворачивается в production. У deploy-job есть только необходимые права Pages и OIDC. Относительный `base` Vite позволяет размещать сборку и в подкаталоге репозитория, и в корне домена. Настройка основана на [документации GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) и [Vite](https://vite.dev/guide/static-deploy.html#github-pages).
+
+Ранняя SVG-версия была опубликована через Sites. Её идентификатор сохранён в `.openai/hosting.json`; действующий хостинг версии 2.0 — GitHub Pages. Сервис Sites перестал находить прежний проект в подключённом аккаунте, поэтому старый адрес не обновлён.
