@@ -899,6 +899,273 @@ button:focus-visible,a:focus-visible {
 
 }
 
+.sr-only {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+  border:0;
+}
+
+.workspace {
+  overflow:clip;
+  background:#e7ebe1;
+}
+
+.visual {
+  align-self:start;
+}
+
+.settings {
+  background:#fff;
+}
+
+.extras {
+  margin-top:23px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fcfdf9;
+}
+
+.extras>summary {
+  cursor:pointer;
+  list-style:none;
+  padding:15px;
+  min-height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  font-size:13px;
+}
+
+.extras>summary::-webkit-details-marker {
+  display:none;
+}
+
+.extras>summary::after {
+  content:'+';
+  font-size:22px;
+  font-weight:400;
+}
+
+.extras[open]>summary::after {
+  content:'−';
+}
+
+.extras>summary small {
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.extras-content {
+  padding:0 15px 15px;
+  border-top:1px solid var(--line);
+}
+
+.toggle {
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  font-size:12px;
+  min-height:54px;
+  cursor:pointer;
+}
+
+.toggle input {
+  position:absolute;
+  opacity:0;
+  margin:0;
+  inset:0;
+  width:100%;
+  height:100%;
+  cursor:pointer;
+}
+
+.switch {
+  width:36px;
+  height:22px;
+  flex:0 0 36px;
+  border-radius:14px;
+  background:#c3cbbd;
+  padding:3px;
+  transition:background .15s;
+}
+
+.switch::after {
+  content:'';
+  display:block;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 3px #233e3226;
+  transition:transform .15s;
+}
+
+.toggle input:checked+.switch {
+  background:var(--green);
+}
+
+.toggle input:checked+.switch::after {
+  transform:translateX(14px);
+}
+
+.toggle:has(input:focus-visible),.segmented label:has(input:focus-visible),.extras>summary:focus-visible,select:focus-visible,input[type=range]:focus-visible {
+  outline:3px solid #aa6b3d;
+  outline-offset:3px;
+  border-radius:5px;
+}
+
+.segmented {
+  display:flex;
+  padding:3px;
+  gap:3px;
+  border:1px solid #e0e5d8;
+  border-radius:8px;
+  background:#eef1e8;
+}
+
+.segmented label {
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:1;
+  min-width:0;
+  min-height:44px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.segmented input {
+  position:absolute;
+  opacity:0;
+  margin:0;
+  inset:0;
+  width:100%;
+  height:100%;
+  cursor:pointer;
+}
+
+.segmented label>span {
+  width:100%;
+  text-align:center;
+  padding:13px 4px;
+  border-radius:5px;
+}
+
+.segmented input:checked+span {
+  background:#fff;
+  box-shadow:0 1px 4px #263d3212;
+  font-weight:600;
+}
+
+.extra-controls {
+  padding-bottom:14px;
+}
+
+.control-label {
+  display:block;
+  font-size:11px;
+  margin:17px 0 7px;
+}
+
+select {
+  display:block;
+  width:100%;
+  min-width:0;
+  min-height:44px;
+  border:1px solid #d8dfd0;
+  border-radius:7px;
+  background:#fff;
+  color:var(--ink);
+  font:inherit;
+  font-size:12px;
+  padding:8px 9px;
+}
+
+.range-label {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+
+output {
+  font-variant-numeric:tabular-nums;
+  color:var(--muted);
+}
+
+input[type=range] {
+  display:block;
+  width:100%;
+  min-width:0;
+  height:44px;
+  margin:0;
+  accent-color:var(--green);
+  cursor:pointer;
+}
+
+.range-ends {
+  display:flex;
+  justify-content:space-between;
+  gap:7px;
+  font-size:9px;
+  color:var(--muted);
+}
+
+.daylight-control {
+  margin:16px 0 12px;
+  padding-top:17px;
+  border-top:1px solid var(--line);
+}
+
+.daylight-control legend {
+  font-size:12px;
+  font-weight:400;
+  margin-bottom:10px;
+  float:left;
+  width:100%;
+}
+
+.daylight-control .segmented {
+  clear:both;
+}
+
+.power-toggle {
+  min-height:44px;
+}
+
+.atmosphere-summary {
+  margin:12px 0 0;
+  padding-top:13px;
+  border-top:1px solid var(--line);
+  font-size:10px;
+  line-height:1.7;
+  color:var(--muted);
+}
+
+select:disabled,input[type=range]:disabled {
+  opacity:.5;
+  cursor:default;
+}
+
+@media(min-width:851px) and (min-height:800px) {
+  .visual {
+    position:sticky;
+    top:20px;
+  }
+}
+
 /* Keep the result visible while choosing finishes on a phone. */
 @media(max-width:600px) and (min-height:500px) {
   .workspace {

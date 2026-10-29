@@ -45,6 +45,9 @@
             <linearGradient id="pot" x2="1" y2=".2"><stop stop-color="#b87d58"/><stop offset=".6" stop-color="#d8a17a"/><stop offset="1" stop-color="#b47d59"/></linearGradient>
             <linearGradient id="seat" x2="0" y2="1"><stop stop-color="#a4ad92"/><stop offset="1" stop-color="#7e8d76"/></linearGradient>
             <radialGradient id="vignette"><stop offset=".55" stop-color="#17372c" stop-opacity="0"/><stop offset="1" stop-color="#17372c" stop-opacity=".07"/></radialGradient>
+            <linearGradient id="curtain-folds"><stop stop-color="#fff" stop-opacity=".2"/><stop offset=".1" stop-color="#172b24" stop-opacity=".14"/><stop offset=".22" stop-color="#fff" stop-opacity=".18"/><stop offset=".33" stop-color="#172b24" stop-opacity=".13"/><stop offset=".44" stop-color="#fff" stop-opacity=".2"/><stop offset=".55" stop-color="#172b24" stop-opacity=".17"/><stop offset=".67" stop-color="#fff" stop-opacity=".18"/><stop offset=".78" stop-color="#172b24" stop-opacity=".13"/><stop offset=".9" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#172b24" stop-opacity=".13"/></linearGradient>
+            <radialGradient id="light-pool"><stop stop-color="var(--light-color, #ffd08a)" stop-opacity=".85"/><stop offset=".55" stop-color="var(--light-color, #ffd08a)" stop-opacity=".32"/><stop offset="1" stop-color="var(--light-color, #ffd08a)" stop-opacity="0"/></radialGradient>
+            <linearGradient id="light-cone" x2="0" y2="1"><stop stop-color="var(--light-color, #ffd08a)" stop-opacity=".28"/><stop offset="1" stop-color="var(--light-color, #ffd08a)" stop-opacity="0"/></linearGradient>
             <pattern id="grain" width="110" height="150" patternUnits="userSpaceOnUse" patternTransform="skewX(-25)"><path d="M20 0c18 30-13 55 0 83s-2 45 4 67M29 0c-9 40 17 55 0 95s-5 35 0 55M79 0c-15 30 12 50 0 90s-8 40 0 60M87 0c-5 40 10 50 0 100s0 25 0 50" fill="none" stroke="var(--floor-line)" stroke-width="1" opacity=".19"/></pattern>
             <pattern id="plaster" width="90" height="90" patternUnits="userSpaceOnUse"><path d="M10 20h1m22 31h1m38-44h1m-9 65h1M7 81h1m44-60h1" stroke="#4e584d" opacity=".08" stroke-width="1.5"/></pattern>
             <clipPath id="left-glass"><path d="M0 72 480 175V398L0 548Z"/></clipPath>
@@ -73,6 +76,7 @@
             <path d="M-15 430q45-90 100-30 35-80 91-22 44-70 85-15 48-74 96-10 63-71 139 15v220H-15Z" fill="#93ad8a" opacity=".65"/>
             <path d="m-20 462 520-68v170H-20Z" fill="#8a9e79" opacity=".3"/>
             <path d="m55 65 100 22L0 525v-83ZM294 120l60 14-180 361-65 21Z" fill="#fff" opacity=".17"/>
+            <g class="night-window-lights" hidden fill="#f9e2a7"><circle cx="68" cy="190" r="1.6"/><circle cx="273" cy="220" r="1.4"/><circle cx="416" cy="244" r="1.5"/><path d="M25 327h8v6h-8Zm23 22h8v6h-8Zm63-42h7v5h-7Zm23 20h7v5h-7Zm70 37h8v5h-8Zm104-50h8v5h-8Z"/></g>
           </g>
           <g fill="none" stroke-linejoin="round">
             <path d="M0 67 485 169v235L0 557" stroke="#8b9b91" stroke-width="15"/>
@@ -92,6 +96,7 @@
             <path d="M525 310h41m-41 19h41m39-55h36m-36 19h36m-36 19h36m39 15h41" stroke="#e4ebe2" stroke-width="4"/>
             <path d="M498 366q32-48 65-21 27-42 61-10 43-43 77-8 29-28 70-1v74H498Z" fill="#9ab18e" opacity=".8"/>
             <path d="m546 175 65 0-99 190v-65Zm156 0h26L621 376h-30Z" fill="#fff" opacity=".17"/>
+            <g class="night-window-lights" hidden fill="#f9e2a7"><circle cx="550" cy="214" r="1.4"/><circle cx="714" cy="240" r="1.4"/><path d="M528 313h6v4h-6Zm82-37h6v4h-6Zm20 19h6v4h-6Zm56 35h6v4h-6Z"/></g>
           </g>
           <path d="M507 172h255v209H507Z" fill="none" stroke="#9aa89b" stroke-width="10"/>
           <path d="M509 172h249v204H509Z" fill="none" stroke="#f6f7ef" stroke-width="9"/>
@@ -100,6 +105,20 @@
           <path d="M620 267v19m22-19v19" stroke="#819187" stroke-width="4" stroke-linecap="round"/>
           <path d="M500 379h270v9H500Z" fill="#c9cebf"/>
           <path d="m500 373-7 7h284l-7-7Z" fill="#fafbf3"/>
+
+          <!-- Curtains are in front of the far window, behind the furnishings. -->
+          <g id="curtains" hidden>
+            <path d="M490 159h294" stroke="#647164" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="490" cy="159" r="4" fill="#647164"/><circle cx="784" cy="159" r="4" fill="#647164"/>
+            <g id="curtain-left" transform="translate(497 165) scale(38 318)">
+              <path d="M0 0h1v1Q.75.98.5 1T0 1Z" fill="var(--curtain-color, #e2d4b8)"/>
+              <path d="M0 0h1v1Q.75.98.5 1T0 1Z" fill="url(#curtain-folds)"/>
+            </g>
+            <g id="curtain-right" transform="translate(739 165) scale(38 318)">
+              <path d="M0 0h1v1Q.75.98.5 1T0 1Z" fill="var(--curtain-color, #e2d4b8)"/>
+              <path d="M0 0h1v1Q.75.98.5 1T0 1Z" fill="url(#curtain-folds)"/>
+            </g>
+          </g>
 
           <!-- All floor materials and sunlight are clipped to the floor plane. -->
           <g clip-path="url(#floor-clip)" id="floor">
@@ -116,7 +135,7 @@
               <path d="M0 480h1000v280H0Z" fill="url(#plaster)"/>
             </g>
             <path d="M0 480h1000v280H0Z" fill="url(#floor-light)"/>
-            <path d="m80 723 359-220h110L268 760H80Zm303 37 210-257h94L561 760Z" fill="#fffbed" opacity=".22"/>
+            <path id="sunlight" d="m80 723 359-220h110L268 760H80Zm303 37 210-257h94L561 760Z" fill="#fffbed" opacity=".22"/>
             <path d="m180 760 314-280m-124 280 213-280m75 280 24-280" stroke="#5d684d" stroke-width="8" opacity=".06"/>
           </g>
           <path d="M0 749 480 473h310l210 276" fill="none" stroke="#faf9ed" stroke-width="9"/>
@@ -169,6 +188,20 @@
             <ellipse cx="605" cy="416" rx="8" ry="2.5" fill="#948369"/>
           </g>
           <path d="M0 0h1000v760H0Z" fill="url(#vignette)" pointer-events="none"/>
+          <!-- Lighting changes the scene, never the selected material values. -->
+          <path id="night-shade" d="M0 0h1000v760H0Z" fill="#102438" opacity="0" pointer-events="none"/>
+          <g id="lamp-glow" hidden pointer-events="none">
+            <ellipse cx="655" cy="359" rx="385" ry="428" fill="url(#light-pool)"/>
+            <path d="M628 140h54l270 620H300Z" fill="url(#light-cone)"/>
+          </g>
+          <g id="pendant-lamp" hidden>
+            <ellipse cx="655" cy="51" rx="14" ry="4" fill="#687564"/>
+            <path d="M655 53v52" stroke="#586351" stroke-width="2.5"/>
+            <path d="M638 104q17-10 34 0l17 31q-34 18-68 0Z" fill="#67725e"/>
+            <path d="M638 104q17 5 34 0" fill="none" stroke="#8b967e" stroke-width="2"/>
+            <ellipse id="lamp-bulb" cx="655" cy="135" rx="33" ry="8" fill="#d6d5c4"/>
+            <ellipse cx="655" cy="135" rx="34" ry="9" fill="none" stroke="#526149" stroke-width="2"/>
+          </g>
         </svg>
         <div class="scene-bottomline"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m10 2 1.8 5.8L18 10l-6.2 2.2L10 18l-1.8-5.8L2 10l6.2-2.2L10 2Z" stroke="currentColor" stroke-width="1.3"/></svg> Маленькое пространство. Большие перемены.</div>
       </section>
@@ -191,6 +224,44 @@
             <label class="floor-option"><input type="radio" name="floor" value="tile"><span class="material gray-tile" aria-hidden="true"></span><span class="floor-name">Серая плитка<span>Спокойная геометрия</span></span><span class="radio-mark" aria-hidden="true"></span></label>
           </div>
         </fieldset>
+        <details class="extras" id="atmosphere-settings">
+          <summary><span>Ещё немного уюта<small>Шторы и освещение</small></span></summary>
+          <div class="extras-content">
+            <label class="toggle"><span>Шторы на дальнем окне</span><input type="checkbox" name="curtains" id="curtains-enabled"><span class="switch" aria-hidden="true"></span></label>
+            <fieldset class="extra-controls" id="curtain-controls" disabled hidden>
+              <legend class="sr-only">Настройки штор</legend>
+              <div class="segmented" aria-label="Положение штор">
+                <label><input type="radio" name="curtainPosition" value="open" checked><span>Открыть</span></label>
+                <label><input type="radio" name="curtainPosition" value="closed"><span>Закрыть</span></label>
+              </div>
+              <label class="control-label" for="curtain-color">Цвет ткани</label>
+              <select name="curtainColor" id="curtain-color"><option value="linen">Натуральный лён</option><option value="sage">Шалфей</option><option value="graphite">Графит</option></select>
+              <label class="control-label range-label" for="curtain-length">Длина штор <output id="curtain-length-value" for="curtain-length">260 см</output></label>
+              <input type="range" name="curtainLength" id="curtain-length" min="120" max="260" step="10" value="260" aria-valuetext="260 сантиметров">
+              <div class="range-ends" aria-hidden="true"><span>Короткие · 120 см</span><span>В пол · 260 см</span></div>
+            </fieldset>
+
+            <fieldset class="daylight-control">
+              <legend>Время суток</legend>
+              <div class="segmented">
+                <label><input type="radio" name="period" value="day" checked><span>День</span></label>
+                <label><input type="radio" name="period" value="night"><span>Вечер</span></label>
+              </div>
+            </fieldset>
+            <label class="toggle"><span>Подвесной светильник</span><input type="checkbox" name="lamp" id="lamp-enabled"><span class="switch" aria-hidden="true"></span></label>
+            <fieldset class="extra-controls" id="lamp-controls" disabled hidden>
+              <legend class="sr-only">Настройки светильника</legend>
+              <label class="toggle power-toggle"><span>Включить свет</span><input type="checkbox" name="lampOn" checked><span class="switch" aria-hidden="true"></span></label>
+              <div id="lamp-light-controls">
+                <label class="control-label" for="temperature">Температура света</label>
+                <select name="temperature" id="temperature"><option value="warm">Тёплый · 3000 K</option><option value="neutral">Нейтральный · 4500 K</option><option value="cool">Холодный · 6000 K</option></select>
+                <label class="control-label range-label" for="brightness">Яркость <output id="brightness-value" for="brightness">75%</output></label>
+                <input type="range" name="brightness" id="brightness" min="10" max="100" step="5" value="75" aria-valuetext="75 процентов">
+              </div>
+            </fieldset>
+            <p class="atmosphere-summary" id="atmosphere-summary" role="status" aria-live="polite" aria-atomic="true">Без штор. День. Светильник не добавлен.</p>
+          </div>
+        </details>
         <div class="selection"><span class="selection-label">ВАШЕ СОЧЕТАНИЕ</span><p id="selection-summary" role="status" aria-live="polite" aria-atomic="true">Стены: бежевые. Пол: светлое дерево.</p></div>
         <button class="reset" type="reset"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 7a6.2 6.2 0 1 1-.1 5M4 3v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Сбросить<span>К исходному сочетанию</span></button>
       </form>

@@ -1,4 +1,6 @@
-import { walls, floors, initialSelection, selectMaterial, describeSelection } from './materials.js';
+import { walls, floors, initialSelection, describeSelection } from './materials.js';
+import { initialAtmosphere, describeAtmosphere } from './atmosphere.js';
+import { readAtmosphere, renderAtmosphere } from './atmosphere-ui.js';
 
 const form = document.querySelector('#finishes');
 const scene = document.querySelector('#balcony');
@@ -7,6 +9,7 @@ const summary = document.querySelector('#selection-summary');
 const wood = document.querySelector('#floor-wood');
 const tile = document.querySelector('#floor-tile');
 let selection = { ...initialSelection };
+let atmosphere = { ...initialAtmosphere };
 
 function render() {
   const wall = walls[selection.wall];
@@ -17,24 +20,24 @@ function render() {
   wood.toggleAttribute('hidden', selection.floor === 'tile');
   tile.toggleAttribute('hidden', selection.floor !== 'tile');
   summary.textContent = describeSelection(selection);
-  sceneTitle.textContent = `Интерьер балкона. ${describeSelection(selection)}`;
+  renderAtmosphere(scene, atmosphere);
+  sceneTitle.textContent = `Интерьер балкона. ${describeSelection(selection)} ${describeAtmosphere(atmosphere)}`;
 }
 
-form.addEventListener('change', (event) => {
-  const input = event.target;
-  if (!(input instanceof HTMLInputElement) || input.type !== 'radio') return;
-  selection = selectMaterial(selection, input.name, input.value);
-  render();
+form.addEventListener('change', syncWithForm);
+
+// Range inputs update continuously while dragging or using the arrow keys.
+form.addEventListener('input', (event) => {
+  if (event.target instanceof HTMLInputElement && event.target.type === 'range') syncWithForm();
 });
 
-form.addEventListener('reset', () => {
-  selection = { ...initialSelection };
-  render();
-});
+// The reset event runs before the browser restores the native form values.
+form.addEventListener('reset', () => queueMicrotask(syncWithForm));
 
 // Synchronize the native form, including values browsers may restore on navigation.
 function syncWithForm() {
   selection = { wall: form.elements.wall.value, floor: form.elements.floor.value };
+  atmosphere = readAtmosphere(form);
   render();
 }
 window.addEventListener('pageshow', syncWithForm);

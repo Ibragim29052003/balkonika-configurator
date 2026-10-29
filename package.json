@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "test": "node --test",
-    "check": "node --check dist/app.js && node --check dist/materials.js && node --check scripts/serve.mjs"
+    "check": "node --check dist/app.js && node --check dist/materials.js && node --check dist/atmosphere.js && node --check dist/atmosphere-ui.js && node --check scripts/serve.mjs"
   },
   "engines": { "node": ">=22" }
 }
