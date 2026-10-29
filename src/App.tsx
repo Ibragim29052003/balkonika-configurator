@@ -29,7 +29,7 @@ export function App() {
         <div className="header-actions">
           <span className="live-chip">
             <i />
-            Сделано для вашего уюта
+            Интерьер в реальном времени
           </span>
           <button
             id="theme-toggle"

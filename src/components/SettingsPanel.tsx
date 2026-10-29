@@ -6,9 +6,24 @@ import { FinishPanel } from './FinishPanel';
 import { TextilePanel } from './TextilePanel';
 import { LightingPanel } from './LightingPanel';
 const tabs = [
-  { id: 'finishes', label: 'Отделка' },
-  { id: 'textiles', label: 'Текстиль' },
-  { id: 'lighting', label: 'Свет' },
+  {
+    id: 'finishes',
+    label: 'Отделка',
+    hint: 'Стены и пол',
+    icon: 'M4 4h16v16H4zM4 12h16M12 4v16',
+  },
+  {
+    id: 'textiles',
+    label: 'Текстиль',
+    hint: 'Шторы и ковёр',
+    icon: 'M3 4h18M5 4v16l3-2 4 2V4m0 16 4-2 3 2V4',
+  },
+  {
+    id: 'lighting',
+    label: 'Свет',
+    hint: 'День и вечер',
+    icon: 'M12 3v4M8 7h8l4 10H4L8 7Zm4 10v4M8 21h8',
+  },
 ] as const;
 type TabId = (typeof tabs)[number]['id'];
 export function SettingsPanel({ onReset }: { onReset(): void }) {
@@ -23,11 +38,16 @@ export function SettingsPanel({ onReset }: { onReset(): void }) {
           <p className="eyebrow">СТУДИЯ БАЛКОНИКА</p>
           <h2>Почувствуйте разницу</h2>
         </div>
-        <span className="settings-count" aria-hidden="true">
-          01—03
-        </span>
       </div>
-      <div className="tabs" role="tablist" aria-label="Разделы настроек">
+      <p className="tabs-hint" id="settings-tabs-hint">
+        Выберите, что настроить
+      </p>
+      <div
+        className="tabs"
+        role="tablist"
+        aria-label="Разделы настроек"
+        aria-describedby="settings-tabs-hint"
+      >
         {tabs.map((item, index) => (
           <button
             ref={(node) => {
@@ -37,6 +57,8 @@ export function SettingsPanel({ onReset }: { onReset(): void }) {
             role="tab"
             id={`tab-${item.id}`}
             aria-controls={`panel-${item.id}`}
+            aria-labelledby={`tab-label-${item.id}`}
+            aria-describedby={`tab-hint-${item.id}`}
             aria-selected={tab === item.id}
             tabIndex={tab === item.id ? 0 : -1}
             key={item.id}
@@ -59,7 +81,21 @@ export function SettingsPanel({ onReset }: { onReset(): void }) {
               refs.current[next]?.focus({ preventScroll: true });
             }}
           >
-            {item.label}
+            <span className="tab-heading">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d={item.icon}
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span id={`tab-label-${item.id}`}>{item.label}</span>
+            </span>
+            <span className="tab-hint" id={`tab-hint-${item.id}`}>
+              {item.hint}
+            </span>
           </button>
         ))}
       </div>

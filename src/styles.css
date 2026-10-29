@@ -376,35 +376,63 @@ h2 {
   letter-spacing: -0.5px;
   margin: 0;
 }
-.settings-count {
+.tabs-hint {
+  margin: 0;
+  padding: 0 24px 12px;
+  font-size: 11px;
   color: var(--muted);
-  font-size: 9px;
-  writing-mode: vertical-rl;
-  letter-spacing: 1px;
 }
 .tabs {
   display: flex;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding: 5px 8px;
-  gap: 3px;
+  padding: 9px;
+  gap: 6px;
   background: var(--surface);
 }
 .tabs button {
   flex: 1;
   min-width: 0;
-  border: 0;
-  background: transparent;
-  border-radius: 7px;
-  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 9px;
+  min-height: 78px;
+  padding: 10px 4px;
   font-size: 12px;
-  color: var(--muted);
+  color: var(--ink);
+  box-shadow: 0 1px 3px #00000008;
+}
+.tabs button:hover {
+  border-color: var(--green);
+  background: var(--selected);
 }
 .tabs button[aria-selected='true'] {
-  background: var(--panel);
-  color: var(--ink);
-  box-shadow: 0 1px 5px #00000008;
+  background: var(--green);
+  color: var(--green-text);
+  border-color: var(--green);
+}
+.tab-heading {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-weight: 600;
+}
+.tab-heading svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+.tab-hint {
+  font-size: 9px;
+  color: var(--muted);
+}
+.tabs button[aria-selected='true'] .tab-hint {
+  color: inherit;
 }
 form {
   padding: 25px 24px 20px;
@@ -991,9 +1019,6 @@ input:disabled,
   }
   h2 {
     font-size: 18px;
-  }
-  .settings-count {
-    display: none;
   }
   .scene-period {
     display: none;
