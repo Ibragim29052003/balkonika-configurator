@@ -31,8 +31,13 @@ form.addEventListener('input', (event) => {
   if (event.target instanceof HTMLInputElement && event.target.type === 'range') syncWithForm();
 });
 
-// The reset event runs before the browser restores the native form values.
-form.addEventListener('reset', () => queueMicrotask(syncWithForm));
+// Render known defaults: native input values are restored after this event.
+// Reading the form here (even in a microtask) can still return the old values.
+form.addEventListener('reset', () => {
+  selection = { ...initialSelection };
+  atmosphere = { ...initialAtmosphere };
+  render();
+});
 
 // Synchronize the native form, including values browsers may restore on navigation.
 function syncWithForm() {

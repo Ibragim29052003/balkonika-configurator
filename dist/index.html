@@ -47,7 +47,6 @@
             <radialGradient id="vignette"><stop offset=".55" stop-color="#17372c" stop-opacity="0"/><stop offset="1" stop-color="#17372c" stop-opacity=".07"/></radialGradient>
             <linearGradient id="curtain-folds"><stop stop-color="#fff" stop-opacity=".2"/><stop offset=".1" stop-color="#172b24" stop-opacity=".14"/><stop offset=".22" stop-color="#fff" stop-opacity=".18"/><stop offset=".33" stop-color="#172b24" stop-opacity=".13"/><stop offset=".44" stop-color="#fff" stop-opacity=".2"/><stop offset=".55" stop-color="#172b24" stop-opacity=".17"/><stop offset=".67" stop-color="#fff" stop-opacity=".18"/><stop offset=".78" stop-color="#172b24" stop-opacity=".13"/><stop offset=".9" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#172b24" stop-opacity=".13"/></linearGradient>
             <radialGradient id="light-pool"><stop stop-color="var(--light-color, #ffd08a)" stop-opacity=".85"/><stop offset=".55" stop-color="var(--light-color, #ffd08a)" stop-opacity=".32"/><stop offset="1" stop-color="var(--light-color, #ffd08a)" stop-opacity="0"/></radialGradient>
-            <linearGradient id="light-cone" x2="0" y2="1"><stop stop-color="var(--light-color, #ffd08a)" stop-opacity=".28"/><stop offset="1" stop-color="var(--light-color, #ffd08a)" stop-opacity="0"/></linearGradient>
             <pattern id="grain" width="110" height="150" patternUnits="userSpaceOnUse" patternTransform="skewX(-25)"><path d="M20 0c18 30-13 55 0 83s-2 45 4 67M29 0c-9 40 17 55 0 95s-5 35 0 55M79 0c-15 30 12 50 0 90s-8 40 0 60M87 0c-5 40 10 50 0 100s0 25 0 50" fill="none" stroke="var(--floor-line)" stroke-width="1" opacity=".19"/></pattern>
             <pattern id="plaster" width="90" height="90" patternUnits="userSpaceOnUse"><path d="M10 20h1m22 31h1m38-44h1m-9 65h1M7 81h1m44-60h1" stroke="#4e584d" opacity=".08" stroke-width="1.5"/></pattern>
             <clipPath id="left-glass"><path d="M0 72 480 175V398L0 548Z"/></clipPath>
@@ -192,7 +191,7 @@
           <path id="night-shade" d="M0 0h1000v760H0Z" fill="#102438" opacity="0" pointer-events="none"/>
           <g id="lamp-glow" hidden pointer-events="none">
             <ellipse cx="655" cy="359" rx="385" ry="428" fill="url(#light-pool)"/>
-            <path d="M628 140h54l270 620H300Z" fill="url(#light-cone)"/>
+            <g clip-path="url(#floor-clip)"><ellipse cx="650" cy="650" rx="300" ry="160" fill="url(#light-pool)" opacity=".55"/></g>
           </g>
           <g id="pendant-lamp" hidden>
             <ellipse cx="655" cy="51" rx="14" ry="4" fill="#687564"/>
